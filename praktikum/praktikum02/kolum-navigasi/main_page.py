@@ -1,7 +1,4 @@
 # menampilkan judul dan deskripsi praktikum
-from turtle import pd
-import pandas as pd
-import numpy as np
 import streamlit as st
 st.title("Praktikum 02 Visualisasi Data")
 st.subheader("Bagian 2: Kolom Navigasi")
@@ -14,4 +11,3 @@ st.markdown("""
 
 st.title("Main Page")
 st.write("This is the main page")
-
