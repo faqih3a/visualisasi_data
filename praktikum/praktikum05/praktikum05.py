@@ -30,7 +30,7 @@ options = st.sidebar.selectbox("Pilih contoh scatter plot:",
                                 "Analisis Scatter Plot"))
 
 # Identitas Kelompok
-st.caption("Praktikum 03 - Matplotlib Line Chart")
+st.caption("Praktikum 05 - Matplotlib Scatter Plot")
 st.markdown("""
         Kelompok 10:
         - Ahmad Al-Faqih Asasi - 0110222190
