@@ -1,114 +1,115 @@
 import streamlit as st
 import matplotlib.pyplot as plt
+import numpy as np
 
-# Data partisipasi siswa
-kegiatan = ['Olahraga', 'Seni', 'Musik', 'Debat']
-persentase = [35, 25, 20, 20]
+st.title("Penjualan Smartphone Berdasarkan Merek")
+st.subheader("Horizontal Bar Chart Sederhana")
 
-# Fungsi untuk membuat pie chart
-def plot_pie_chart(labels, data):
-    fig, ax = plt.subplots()
-    ax.pie(data, labels=labels, autopct='%1.1f%%', startangle=140)
-    ax.set_title('Persentase Partisipasi Siswa dalam Kegiatan Ekstrakurikuler')
-    st.pyplot(fig)
+# Data Penjualan Smartphone
+brands = ['Brand A', 'Brand B', 'Brand C', 'Brand D']
+sales = [350, 420, 300, 280]
 
-# Streamlit interface
-st.title("Visualisasi Data Kegiatan Ekstrakurikuler")
-st.subheader("Pie Chart Sederhana")
-plot_pie_chart(kegiatan, persentase)
+# Membuat Horizontal Bar Chart
+fig, ax = plt.subplots()
+y = np.arange(len(brands))  # Posisi untuk batang
+ax.barh(y, sales, color='skyblue')
+ax.set_yticks(y)
+ax.set_yticklabels(brands)
+ax.set_xlabel('Total Sales (in Units)')
+ax.set_title('Smartphone Sales by Brand')
 
-
-# Fungsi untuk pie chart dengan kustomisasi
-def plot_customized_pie(labels, data):
-    colors = ['gold', 'lightblue', 'lightgreen', 'coral']
-    explode = [0.1, 0, 0, 0]  # Menonjolkan "Olahraga"
-
-    fig, ax = plt.subplots()
-    ax.pie(
-        data,
-        labels=labels,
-        autopct='%1.1f%%',
-        startangle=140,
-        colors=colors,
-        explode=explode,
-        shadow=True
-    )
-    ax.set_title('Kustomisasi Pie Chart')
-    st.pyplot(fig)
-
-# Streamlit interface untuk kustomisasi
-st.subheader("Kustomisasi Pie Chart")
-plot_customized_pie(kegiatan, persentase)
+# Tampilkan di Streamlit
+st.pyplot(fig)
 
 
-# Fungsi untuk multiple pie chart
-def plot_multiple_pie():
-    fig, axs = plt.subplots(1, 2, figsize=(12, 6))
+# Warna berbeda untuk setiap batang
+colors = ['blue', 'green', 'orange', 'red']
 
-    # Data kelompok 1
-    kegiatan_1 = ['Olahraga', 'Seni']
-    persentase_1 = [40, 60]
+fig, ax = plt.subplots()
+ax.barh(y, sales, color=colors)
 
-    # Data kelompok 2
-    kegiatan_2 = ['Musik', 'Debat']
-    persentase_2 = [50, 50]
+# Menambahkan nilai pada batang
+for i, v in enumerate(sales):
+    ax.text(v + 10, i, str(v), color='black', va='center')  # Posisi teks
 
-    # Pie chart untuk kelompok 1
-    axs[0].pie(persentase_1, labels=kegiatan_1, autopct='%1.1f%%', startangle=140, colors=['gold', 'lightblue'])
-    axs[0].set_title('Grup 1')
+ax.set_yticks(y)
+ax.set_yticklabels(brands)
+ax.set_xlabel('Total Sales (in Units)')
+ax.set_title('Customized Smartphone Sales by Brand')
 
-    # Pie chart untuk kelompok 2
-    axs[1].pie(persentase_2, labels=kegiatan_2, autopct='%1.1f%%', startangle=140, colors=['lightgreen', 'coral'])
-    axs[1].set_title('Grup 2')
+# Tampilkan di Streamlit
+st.pyplot(fig)
 
-    st.pyplot(fig)
 
-# Streamlit interface untuk multiple pie chart
-st.subheader("Multiple Pie Chart")
-plot_multiple_pie()
+st.subheader("Multiple Horizontal Bar Chart")
+
+# Data Penjualan
+brands = ['Brand A', 'Brand B', 'Brand C', 'Brand D']
+q1_sales = [350, 400, 300, 250]
+q2_sales = [370, 420, 310, 280]
+
+bar_width = 0.4  # Lebar batang
+y = np.arange(len(brands))
+
+fig, ax = plt.subplots()
+
+# Membuat Multiple Horizontal Bar Chart
+ax.barh(y - bar_width / 2, q1_sales, height=bar_width, label='Q1 Sales', color='skyblue')
+ax.barh(y + bar_width / 2, q2_sales, height=bar_width, label='Q2 Sales', color='salmon')
+
+# Penyesuaian tampilan
+ax.set_yticks(y)
+ax.set_yticklabels(brands)
+ax.set_xlabel('Total Sales (in Units)')
+ax.set_title('Smartphone Sales by Brand (Multiple Periods)')
+ax.legend()
+
+# Tampilkan di Streamlit
+st.pyplot(fig)
+
 
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Data Penjualan Bulanan
-months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-shoes = [500, 600, 700, 800, 650, 700, 850, 900, 750, 800, 950, 1000]
-sandals = [300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850]
-socks = [200, 250, 300, 350, 300, 400, 450, 500, 600, 700, 750, 800]
+# Contoh data penjualan
+brands = ['Brand A', 'Brand B', 'Brand C']
+sales_2022 = [350, 450, 300]
+sales_2023 = [400, 500, 320]
 
-# Fungsi untuk Membuat Area Chart
-def plot_area_chart(selected_products):
-    plt.figure(figsize=(10, 6))
+def create_stacked_bar_chart():
+    fig, ax = plt.subplots(figsize=(10, 6))
+    y = np.arange(len(brands))
+    ax.barh(y, sales_2022, label='2022', color='skyblue')
+    ax.barh(y, sales_2023, left=sales_2022, label='2023', color='orange')
+    ax.set_yticks(y)
+    ax.set_yticklabels(brands)
+    ax.set_xlabel('Sales')
+    ax.set_title('Smartphone Sales by Brand')
+    ax.legend()
+    return fig
 
-    # Memilih produk yang akan divisualisasikan
-    if 'Sepatu' in selected_products:
-        plt.fill_between(months, shoes, color="blue", alpha=0.5, label="Sepatu")
-    if 'Sandal' in selected_products:
-        plt.fill_between(months, sandals, color="green", alpha=0.5, label="Sandal")
-    if 'Kaos Kaki' in selected_products:
-        plt.fill_between(months, socks, color="orange", alpha=0.5, label="Kaos Kaki")
 
-    plt.title("Area Chart: Penjualan Bulanan")
-    plt.xlabel("Bulan")
-    plt.ylabel("Unit Terjual")
-    plt.xticks(rotation=45)
-    plt.grid(axis='y', linestyle='--', alpha=0.6)
-    plt.legend()
-    st.pyplot(plt)
+# Render chart di Streamlit
+st.title("Smartphone Sales Visualization")
+st.pyplot(create_stacked_bar_chart())
 
-    # Aplikasi Streamlit
-def main():
-    st.title("Visualisasi Penjualan Bulanan")
-    st.sidebar.title("Pengaturan Grafik")
+def create_custom_stacked_bar_chart():
+    fig, ax = plt.subplots(figsize=(10, 6))
+    y = np.arange(len(brands))
+    ax.barh(y, sales_2022, label='2022', color='blue', edgecolor='black', hatch='//')
+    ax.barh(y, sales_2023, left=sales_2022, label='2023', color='green', edgecolor='black', hatch='\\')
+    ax.set_yticks(y)
+    ax.set_yticklabels(brands)
+    ax.set_xlabel('Sales')
+    ax.set_title('Customized Smartphone Sales by Brand')
+    ax.legend()
 
-    # Filter Produk
-    st.sidebar.markdown("### Pilih Produk")
-    products = ['Sepatu', 'Sandal', 'Kaos Kaki']
-    selected_products = st.sidebar.multiselect("Produk yang akan ditampilkan:", products, default=products)
+    # Tambahkan anotasi
+    for i in range(len(brands)):
+        ax.text(sales_2022[i] / 2, i, f"{sales_2022[i]}", va='center', color='white')
+        ax.text(sales_2022[i] + sales_2023[i] / 2, i, f"{sales_2023[i]}", va='center', color='black')
 
-    st.markdown("### Area Chart Penjualan")
-    plot_area_chart(selected_products)
+    return fig
 
-if __name__ == "__main__":
-    main()
+st.pyplot(create_custom_stacked_bar_chart())
